@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -191,10 +190,25 @@ nav ul a.btn-nav:hover{
   padding:4px 8px;
 }
 
-/* Sections */
+/* Sections (sistem per halaman: hanya 1 section yang tampil) */
 section{
   padding:100px 8%;
   border-bottom:1px solid var(--line);
+}
+
+main > section:not(.page-active){
+  display:none;
+}
+
+main > section:not(.hero){
+  min-height:calc(100vh - 76px);
+  min-height:calc(100svh - 76px);
+}
+
+/* Tentang Saya digabung di halaman Home (di bawah hero) */
+#tentang{
+  min-height:auto;
+  padding-top:70px;
 }
 
 .section-head{
@@ -662,6 +676,16 @@ section{
   font-size:1.35rem;
   margin-bottom:12px;
   line-height:1.4;
+}
+
+.card-date{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:#e879f9;
+  font-size:.85rem;
+  font-weight:600;
+  margin:-4px 0 14px;
 }
 
 .tech-tags{
@@ -1297,10 +1321,8 @@ footer .social-icons{
   <nav id="nav-menu" aria-label="Menu utama">
     <ul>
       <li><a href="#home" class="nav-link active">Home</a></li>
-      <li><a href="#tentang" class="nav-link">Tentang</a></li>
       <li><a href="#keahlian" class="nav-link">Keahlian</a></li>
       <li><a href="#pendidikan" class="nav-link">Pendidikan</a></li>
-      <li><a href="#pengalaman" class="nav-link">Pengalaman</a></li>
       <li><a href="#project" class="nav-link">Project</a></li>
       <li><a href="#contact" class="btn-nav nav-link">Contact</a></li>
     </ul>
@@ -1320,7 +1342,7 @@ footer .social-icons{
 <main>
 
 <!-- HOME -->
-<section id="home" class="hero">
+<section id="home" class="hero page-active">
 
   <div class="hero-content">
 
@@ -1513,35 +1535,6 @@ footer .social-icons{
 
 </section>
 
-<!-- PENGALAMAN -->
-<section id="pengalaman">
-
-  <div class="section-head reveal">
-    <h2 class="section-title">Pengalaman <span>Proyek</span></h2>
-  </div>
-
-  <div class="panel timeline-box reveal reveal-left">
-
-    <div class="timeline-item">
-      <h4>Website Company Profile Tefa Bakery &amp; Coffee</h4>
-      <span class="date">2025</span>
-      <p>
-        Mengembangkan website Company Profile Tefa Bakery &amp; Coffee sebagai media informasi digital yang menampilkan profil perusahaan, produk, layanan, dan informasi kontak dengan desain yang responsif serta mudah digunakan.
-      </p>
-    </div>
-
-    <div class="timeline-item">
-      <h4>Sistem Informasi Stok Barang KPRI</h4>
-      <span class="date">2026</span>
-      <p>
-        Mengembangkan aplikasi web Sistem Informasi Stok Barang KPRI dengan fokus pada manajemen inventaris, pengelolaan data barang, monitoring stok, dan pelaporan. Sistem dirancang untuk meningkatkan efisiensi proses administrasi melalui antarmuka yang mudah digunakan.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
 <!-- PROJECT -->
 <section id="project">
 
@@ -1562,6 +1555,7 @@ footer .social-icons{
         </div>
 
         <h4>Company Profile Tefa Bakery &amp; Coffee</h4>
+        <span class="card-date"><i class="far fa-calendar"></i> 2025</span>
 
         <div class="tech-tags">
           <span>HTML5</span>
@@ -1570,7 +1564,7 @@ footer .social-icons{
         </div>
 
         <p>
-          Website media informasi profil usaha, katalog roti dan kopi, serta info kontak yang dirancang responsif dan modern.
+          Mengembangkan website company profile sebagai media informasi digital yang menampilkan profil usaha, katalog roti dan kopi, layanan, serta informasi kontak dengan desain yang responsif dan mudah digunakan.
         </p>
 
         <a href="https://company-profile-tefa-bakery-coffe.vercel.app"
@@ -1594,6 +1588,7 @@ footer .social-icons{
         </div>
 
         <h4>Sistem Informasi Stok Barang KPRI</h4>
+        <span class="card-date"><i class="far fa-calendar"></i> 2026</span>
 
         <div class="tech-tags">
           <span>PHP</span>
@@ -1602,7 +1597,7 @@ footer .social-icons{
         </div>
 
         <p>
-          Aplikasi web manajemen inventaris koperasi untuk memantau jumlah stok, mengelola log barang masuk-keluar, dan membuat laporan otomatis.
+          Mengembangkan aplikasi web manajemen inventaris koperasi dengan fokus pada pengelolaan data barang, monitoring stok, log barang masuk-keluar, dan pelaporan. Dirancang untuk meningkatkan efisiensi administrasi lewat antarmuka yang mudah digunakan.
         </p>
 
         <a href="https://kpri-polije1.free.nf"
@@ -1689,7 +1684,7 @@ footer .social-icons{
             id="email"
             required
             autocomplete="email"
-            placeholder="nama@email.com">
+            placeholder="nama@gmail.com">
         </div>
 
         <div class="form-group">
@@ -1797,26 +1792,7 @@ footer .social-icons{
 })();
 
 
-/* 2. Reveal on scroll */
-var reveal=new IntersectionObserver(function(entries,obs){
-
-  entries.forEach(function(e){
-
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      obs.unobserve(e.target);
-    }
-
-  });
-
-},{threshold:.12});
-
-document.querySelectorAll('.reveal').forEach(function(el){
-  reveal.observe(el);
-});
-
-
-/* 3. Navbar, progress bar, back-to-top */
+/* 2. Navbar, progress bar, back-to-top */
 var navbar=document.getElementById('navbar');
 var progress=document.getElementById('progress');
 var topBtn=document.getElementById('top');
@@ -1836,7 +1812,6 @@ function onScroll(){
 
 window.addEventListener('scroll',onScroll,{passive:true});
 window.addEventListener('resize',onScroll);
-onScroll();
 
 topBtn.addEventListener('click',function(){
 
@@ -1848,36 +1823,7 @@ topBtn.addEventListener('click',function(){
 });
 
 
-/* 4. Active menu link */
-var links=document.querySelectorAll('.nav-link');
-
-var spy=new IntersectionObserver(function(entries){
-
-  entries.forEach(function(e){
-
-    if(e.isIntersecting){
-
-      links.forEach(function(l){
-
-        l.classList.toggle(
-          'active',
-          l.getAttribute('href')==='#'+e.target.id
-        );
-
-      });
-
-    }
-
-  });
-
-},{rootMargin:'-45% 0px -50% 0px'});
-
-document.querySelectorAll('main section').forEach(function(s){
-  spy.observe(s);
-});
-
-
-/* 5. Mobile menu */
+/* 3. Mobile menu */
 var toggle=document.getElementById('menu-toggle');
 var menu=document.getElementById('nav-menu');
 
@@ -1904,14 +1850,6 @@ toggle.addEventListener('click',function(){
 
 });
 
-links.forEach(function(l){
-
-  l.addEventListener('click',function(){
-    setMenu(false);
-  });
-
-});
-
 document.addEventListener('keydown',function(e){
 
   if(e.key==='Escape'){
@@ -1920,7 +1858,138 @@ document.addEventListener('keydown',function(e){
 
 });
 
-/* 6. Card glow */
+
+/* 4. Navigasi per halaman */
+var pages=Array.prototype.slice.call(document.querySelectorAll('main > section'));
+var pageIds=pages.map(function(p){return p.id;});
+var navLinks=document.querySelectorAll('.nav-link');
+var currentPage=null;
+
+var aboutObs=new IntersectionObserver(function(entries,obs){
+
+  entries.forEach(function(e){
+
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      obs.unobserve(e.target);
+    }
+
+  });
+
+},{threshold:.12});
+
+function showPage(id,push){
+
+  /* #tentang sekarang bagian dari Home */
+  if(id==='tentang'){
+    id='home';
+  }
+
+  /* #pengalaman sekarang digabung ke Project */
+  if(id==='pengalaman'){
+    id='project';
+  }
+
+  if(pageIds.indexOf(id)===-1){
+    id='home';
+  }
+
+  var target=document.getElementById(id);
+  var about=document.getElementById('tentang');
+
+  if(id!==currentPage){
+
+    pages.forEach(function(p){
+      p.classList.toggle(
+        'page-active',
+        p===target||(id==='home'&&p===about)
+      );
+    });
+
+    /* Replay animasi reveal tiap kali halaman dibuka */
+    var items=target.querySelectorAll('.reveal');
+
+    items.forEach(function(el){
+      el.classList.remove('in');
+    });
+
+    void target.offsetWidth;
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        items.forEach(function(el){
+          el.classList.add('in');
+        });
+      });
+    });
+
+    /* Bagian Tentang di bawah hero: animasi muncul saat di-scroll */
+    about.querySelectorAll('.reveal').forEach(function(el){
+      el.classList.remove('in');
+      aboutObs.unobserve(el);
+      if(id==='home'){
+        aboutObs.observe(el);
+      }
+    });
+
+    navLinks.forEach(function(l){
+
+      var active=l.getAttribute('href')==='#'+id;
+
+      l.classList.toggle('active',active);
+
+      if(active){
+        l.setAttribute('aria-current','page');
+      }else{
+        l.removeAttribute('aria-current');
+      }
+
+    });
+
+    var titleEl=target.querySelector('.section-title');
+    document.title=(id==='home'||!titleEl)
+      ?'Reza Dwi Pratama | Web Developer Portfolio'
+      :titleEl.textContent.replace(/\s+/g,' ').trim()+' | Reza Dwi Pratama';
+
+    currentPage=id;
+  }
+
+  window.scrollTo({top:0,behavior:'instant'});
+  onScroll();
+
+  if(push&&location.hash!=='#'+id){
+    history.pushState({page:id},'','#'+id);
+  }
+
+}
+
+/* Semua link internal (#...) pindah halaman, bukan scroll */
+document.addEventListener('click',function(e){
+
+  var a=e.target.closest('a[href^="#"]');
+
+  if(!a){return;}
+
+  var id=a.getAttribute('href').slice(1);
+
+  if(pageIds.indexOf(id)===-1){return;}
+
+  e.preventDefault();
+  setMenu(false);
+  showPage(id,true);
+
+});
+
+/* Tombol back/forward browser */
+window.addEventListener('popstate',function(){
+  showPage(location.hash.slice(1)||'home',false);
+});
+
+/* Halaman awal (mendukung buka langsung lewat #tentang dll.) */
+showPage(location.hash.slice(1)||'home',false);
+
+
+/* 5. Card glow */
 document.querySelectorAll('.card').forEach(function(card){
 
   card.addEventListener('mousemove',function(e){
@@ -1935,7 +2004,7 @@ document.querySelectorAll('.card').forEach(function(card){
 });
 
 
-/* 7. WhatsApp form */
+/* 6. WhatsApp form */
 function sendToWhatsApp(event){
 
   event.preventDefault();
